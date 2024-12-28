@@ -22,8 +22,10 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("user connected" + socket.id);
 
-  socket.on("message", (message) => {
-    console.log(message);
+  socket.on("message", (data) => {
+    console.log(data);
+    socket.broadcast.emit("received-messege",data)
+
   });
 
   socket.on("disconnect", () => {
