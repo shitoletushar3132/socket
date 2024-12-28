@@ -2,17 +2,18 @@ import express from "express";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import cors from "cors";
-
+import dotenv from "dotenv";
 const app = express();
-const PORT = 3000;
-
+dotenv.config();
+const PORT = process.env.PORT;
 // server creation
 const server = new createServer(app);
-app.use(cors({
-  origin: "https://chat-app12-nu.vercel.app",
-  credentials: true,
-
-}))
+app.use(
+  cors({
+    origin: "https://chat-app12-nu.vercel.app",
+    credentials: true,
+  })
+);
 // socket  created /also cors because server and client on different origin
 const io = new Server(server, {
   cors: {
