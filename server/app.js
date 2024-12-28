@@ -20,23 +20,25 @@ const io = new Server(server, {
 
 // socket connection created
 io.on("connection", (socket) => {
-  console.log("user connected");
-  console.log("Id", socket.id);
-  
-//   socket.emit("welcome", `Welcome to the server`);
-//   socket.broadcast.emit("welcome", `${socket.id} joined the server`);
+  console.log("user connected" + socket.id);
+
+  socket.on("message", (message) => {
+    console.log(message);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
 });
 
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-
 // this will create only http instance we need to listent on server
 // app.listen(PORT, () => {
 //   console.log(`server is listening on ${PORT}`);
 // });
-
 
 server.listen(PORT, () => {
   console.log(`server is listening on ${PORT}`);
