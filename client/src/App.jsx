@@ -8,7 +8,7 @@ const App = () => {
   const [roomName, setRoomName] = useState("");
   const [socketId, setSocketId] = useState("");
 
-  const socket = useMemo(() => io("http://localhost:4000"), []);
+  const socket = useMemo(() => io("https://socket3-8cpc.onrender.com/"), []);
 
   const handleSubmit = () => {
     console.log(message);
