@@ -2,11 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 const App = () => {
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState("");
   const [room, setRoom] = useState("");
   const [roomName, setRoomName] = useState("");
   const [socketId, setSocketId] = useState("");
 
-  const socket = useMemo(() => io("http://localhost:3000"), []);
+  const socket = useMemo(() => io("https://web-backend-5pp9.onrender.com"), []);
 
   const handleSubmit = () => {
     console.log(message);
@@ -16,7 +17,7 @@ const App = () => {
 
   const joinRoom = () => {
     socket.emit("join-room", roomName);
-    console.log(roomName)
+    console.log(roomName);
   };
 
   const handleMessagechange = (e) => {
@@ -38,7 +39,7 @@ const App = () => {
       console.log(msg);
     });
     socket.on("received-messege", (data) => {
-      console.log("received the message", data);
+      setMessages((prev) => [...prev, data]);
     });
 
     return () => {
@@ -65,7 +66,9 @@ const App = () => {
                 value={roomName}
                 onChange={(e) => setRoomName(e.target.value)}
               />
-              <button className="px-2 py-2 bg-blue-800" onClick={joinRoom}>JOIN ROOM</button>
+              <button className="px-2 py-2 bg-blue-800" onClick={joinRoom}>
+                JOIN ROOM
+              </button>
             </div>
             <label className="text-xl" htmlFor="message">
               {" "}
@@ -92,6 +95,7 @@ const App = () => {
           </div>
           <button onClick={handleSubmit}>Send</button>
         </div>
+        {messages && messages?.map((data) => <p>{data}</p>)}
       </div>
     </div>
   );
