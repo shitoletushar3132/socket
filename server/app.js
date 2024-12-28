@@ -21,7 +21,12 @@ const io = new Server(server, {
 // socket connection created
 io.on("connection", (socket) => {
   console.log("user connected" + socket.id);
-
+  // just take name from frontend and create room
+  socket.on("join-room", (room) => {
+    socket.join(room);
+    console.log("user joined room" + room);
+  });
+  // take room and message and send to all which are in room
   socket.on("message", ({ message, room }) => {
     console.log({ message, room });
     // socket.broadcast.emit("received-messege",data)
