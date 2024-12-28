@@ -17,8 +17,8 @@ app.use(
 // socket  created /also cors because server and client on different origin
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-app12-nu.vercel.app",
-    methods: ["GET", "POST"],
+    origin: ["http://localhost:5173", "https://chat-app12-nu.vercel.app"],
+
     credentials: true,
   },
 });
